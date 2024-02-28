@@ -1,3 +1,14 @@
+Arbeitsaufteilung:
+- [ ] Maven updaten (Mateo)
+- [ ] Movie Klasse erweitern um Genres (Aleyna)
+- [ ] Testdaten erstellen (so gewählt, dass die Features gut getestet werden können)
+- [x] Eine neue Klasse erstellen für nachfolgende Features (Martin)
+- [ ] Filter: Suchleiste, mit Tests (Martin)
+- [ ] Filter: Genre, mit Tests (Aleyna)
+- [ ] Sortierung mit Tests (Mateo)
+
+
+
 ## PRG2 - Exercise 1 Template Repository
 Use this repository as a template for your PRG2 exercise 1 submission. The template serves as a guideline to complete your exercise 1 with JavaFX.
 You can do any changes you want to the code.
