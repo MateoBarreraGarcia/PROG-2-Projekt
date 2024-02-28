@@ -48,6 +48,13 @@ public class Movie {
         movies.add((new Movie("Pulp Fiction", "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.")));
         movies.add((new Movie("Your Name.", "High schoolers Mitsuha and Taki are complete strangers living separate lives. But one night, they suddenly switch places. Mitsuha wakes up in Taki’s body, and he in hers. This bizarre occurrence continues to happen randomly, and the two must adjust their lives around each other.")));
 
+        movies.add((new Movie("Knight and Day", "A young woman gets mixed up with a disgraced spy who is trying to clear his name.")));
+        movies.add((new Movie("The Terminator", "A human soldier is sent from 2029 to 1984 to stop an almost indestructible cyborg killing machine, sent from the same year, which has been programmed to execute a young woman whose unborn son is the key to humanity's future salvation.")));
+        movies.add((new Movie("The Incredibles", "While trying to lead a quiet suburban life, a family of undercover superheroes are forced into action to save the world.")));
+        movies.add((new Movie("Modern Times", "The Tramp struggles to live in modern industrial society with the help of a young homeless woman.")));
+        movies.add((new Movie("The Conjuring", "Paranormal investigators Ed and Lorraine Warren work to help a family terrorized by a dark presence in their farmhouse.")));
+        movies.add((new Movie("toy Story", "A cowboy doll is profoundly threatened and jealous when a new spaceman action figure supplants him as top toy in a boy's bedroom.")));
+
         return movies;
     }
 }
