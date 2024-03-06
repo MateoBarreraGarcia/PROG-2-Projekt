@@ -45,20 +45,8 @@ public class HomeController implements Initializable {
         movieListView.setItems(observableMovies);   // set data of observable list to list view
         movieListView.setCellFactory(movieListView -> new MovieCell()); // use custom cell factory to display data
 
-        Movie movie= new Movie("Titel", "Beschreibung", List.of("ACTION",
-                "ADVENTURE","ANIMATION","BIOGRAPHY","COMEDY","CRIME","DRAMA","DOCUMENTARY",
-                "FAMILY","FANTASY","HISORY","HORROR","MUSICAL","MYSTERY","ROMANCE",
-                "SCIENCE_FICTION","SPORT","THRILLER","WAR","WESTERN"));
-        observableMovies.add(movie);
 
         // TODO add genre filter items with genreComboBox.getItems().addAll(...)
-        List<String> availableGenres = allMovies.stream()
-                        .flatMap(m -> m.getGenres().stream())
-                                .distinct()
-                                        .sorted()
-                                                .collect(Collectors.toList());
-
-        genreComboBox.getItems().addAll(availableGenres);
         genreComboBox.setPromptText("Filter by Genre");
 
         genreComboBox.setOnAction(event -> {String selectedGenre= (String) genreComboBox.getSelectionModel().getSelectedItem();
