@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -44,8 +45,38 @@ public class HomeController implements Initializable {
         movieListView.setItems(observableMovies);   // set data of observable list to list view
         movieListView.setCellFactory(movieListView -> new MovieCell()); // use custom cell factory to display data
 
+        Movie movie= new Movie("Titel", "Beschreibung", List.of("ACTION",
+                "ADVENTURE","ANIMATION","BIOGRAPHY","COMEDY","CRIME","DRAMA","DOCUMENTARY",
+                "FAMILY","FANTASY","HISORY","HORROR","MUSICAL","MYSTERY","ROMANCE",
+                "SCIENCE_FICTION","SPORT","THRILLER","WAR","WESTERN"));
+        observableMovies.add(movie);
+
         // TODO add genre filter items with genreComboBox.getItems().addAll(...)
+        List<String> availableGenres = allMovies.stream()
+                        .flatMap(m -> m.getGenres().stream())
+                                .distinct()
+                                        .sorted()
+                                                .collect(Collectors.toList());
+
+        genreComboBox.getItems().addAll(availableGenres);
         genreComboBox.setPromptText("Filter by Genre");
+
+        genreComboBox.setOnAction(event -> {String selectedGenre= (String) genreComboBox.getSelectionModel().getSelectedItem();
+            if (selectedGenre != null && !selectedGenre.isEmpty()) {
+                // Filtere die Filme nach dem ausgewählten Genre
+                ObservableList<Movie> filteredMovies = FXCollections.observableArrayList(
+                        observableMovies.stream()
+                                .filter(m -> m.getGenres().contains(selectedGenre))
+                                .collect(Collectors.toList())
+                );
+                movieListView.setItems(filteredMovies);
+            } else {
+                // Wenn kein Genre ausgewählt ist, zeige alle Filme an
+                movieListView.setItems(observableMovies);
+            }
+        });
+
+
 
         // TODO add event handlers to buttons and call the regarding methods
         // either set event handlers in the fxml file (onAction) or add them here

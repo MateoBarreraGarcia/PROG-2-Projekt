@@ -7,10 +7,19 @@ public class Movie {
     private String title;
     private String description;
     // TODO add more properties here
+    private List<String> genres;
 
-    public Movie(String title, String description) {
+    public Movie(String title, String description, List <String> genres) {
         this.title = title;
         this.description = description;
+        this.genres=genres;
+    }
+
+    public List<String> getGenres(){
+        return genres;
+    }
+    public void setGenres (List<String> genres){
+        this.genres=genres;
     }
 
     public String getTitle() {
@@ -24,18 +33,18 @@ public class Movie {
     public static List<Movie> initializeMovies(){
         List<Movie> movies = new ArrayList<>();
         // TODO add some dummy data here
-        movies.add(new Movie("Zeke and Luther","Zeke and Luther want nothing more in the world than to become world-famous skateboarders. Together with their friends, skating rivals, and family, Zeke & Luther find themselves always busy getting into mischief.")); // Komödie, Kids
-        movies.add(new Movie("Avatar: The Last Airbender","In a war-torn world of elemental magic, a young boy reawakens to undertake a dangerous mystic quest to fulfill his destiny as the Avatar, and bring peace to the world.")); // Sci-Fi & Fantasy, Action & Adventure, Animation
-        movies.add(new Movie("Dune: Part Two","Follow the mythic journey of Paul Atreides as he unites with Chani and the Fremen while on a path of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, Paul endeavors to prevent a terrible future only he can foresee.")); // Science Fiction, Abenteuer
-        movies.add(new Movie("Dune","Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence-a commodity capable of unlocking humanity's greatest potential-only those who can conquer their fear will survive.")); // Science Fiction, Abenteuer
-        movies.add(new Movie("Poor Things","Brought back to life by an unorthodox scientist, a young woman runs off with a debauched lawyer on a whirlwind adventure across the continents. Free from the prejudices of her times, she grows steadfast in her purpose to stand for equality and liberation.")); // Science Fiction, Liebesfilm, Komödie
-        movies.add(new Movie("Shōgun ","In Japan in the year 1600, at the dawn of a century-defining civil war, Lord Yoshii Toranaga is fighting for his life as his enemies on the Council of Regents unite against him, when a mysterious European ship is found marooned in a nearby fishing village."));    // Drama, War & Politics
-        movies.add(new Movie("Wonka","Willy Wonka – chock-full of ideas and determined to change the world one delectable bite at a time – is proof that the best things in life begin with a dream, and if you’re lucky enough to meet Willy Wonka, anything is possible."));  // Komödie, Familie, Fantasy
-        movies.add(new Movie("Oppenheimer","The story of J. Robert Oppenheimer's role in the development of the atomic bomb during World War II."));    // Drama, Historie
-        movies.add(new Movie("Avatar: The Way of Water","Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure."));   // Science Fiction, Abenteuer, Action
-
+        movies.add(new Movie("Zeke and Luther","Zeke and Luther want nothing more in the world than to become world-famous skateboarders. Together with their friends, skating rivals, and family, Zeke & Luther find themselves always busy getting into mischief.",List.of("COMEDY"))); // Komödie, Kids
+        movies.add(new Movie("Avatar: The Last Airbender","In a war-torn world of elemental magic, a young boy reawakens to undertake a dangerous mystic quest to fulfill his destiny as the Avatar, and bring peace to the world.", List.of("SCIENCE_FICTION","ACTION","ADVENTURE","ANIMATION"))); // Sci-Fi & Fantasy, Action & Adventure, Animaion
+        movies.add(new Movie("Dune: Part Two","Follow the mythic journey of Paul Atreides as he unites with Chani and the Fremen while on a path of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, Paul endeavors to prevent a terrible future only he can foresee.",List.of("SCIENCE_FICTION","ADVENTURE"))); // Science Fiction, Abenteuer
+        movies.add(new Movie("Dune","Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence-a commodity capable of unlocking humanity's greatest potential-only those who can conquer their fear will survive.",List.of("SCIENCE_FICTION","ADVENTURE"))); // Science Fiction, Abenteuer
+        movies.add(new Movie("Poor Things","Brought back to life by an unorthodox scientist, a young woman runs off with a debauched lawyer on a whirlwind adventure across the continents. Free from the prejudices of her times, she grows steadfast in her purpose to stand for equality and liberation.",List.of("SCIENCE_FICTION","ROMANCE","COMEDY"))); // Science Fiction, Liebesfilm, Komödie
+        movies.add(new Movie("Shōgun ","In Japan in the year 1600, at the dawn of a century-defining civil war, Lord Yoshii Toranaga is fighting for his life as his enemies on the Council of Regents unite against him, when a mysterious European ship is found marooned in a nearby fishing village.",List.of("Action", "DRAMA","WAR")));    // Drama, War & Politics
+        movies.add(new Movie("Wonka","Willy Wonka – chock-full of ideas and determined to change the world one delectable bite at a time – is proof that the best things in life begin with a dream, and if you’re lucky enough to meet Willy Wonka, anything is possible.", List.of("COMEDY","FAMILY","FANTASY")));  // Komödie, Familie, Fantasy
+        movies.add(new Movie("Oppenheimer","The story of J. Robert Oppenheimer's role in the development of the atomic bomb during World War II.",List.of("DRAMA","HISTORY")));    // Drama, Historie
+        movies.add(new Movie("Avatar: The Way of Water","Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",List.of("SCIENCE_FICTION","ADVENTURE","ACTION")));   // Science Fiction, Abenteuer, Action
+        /*
         movies.add(new Movie("1917", "At the height of the First World War, two young British soldiers must cross enemy territory and deliver a message that will stop a deadly attack on hundreds of soldiers."));
-        movies.add((new Movie("The Lord of the Rings: The Two Towers", "Frodo and Sam are trekking to Mordor to destroy the One Ring of Power while Gimli, Legolas and Aragorn search for the orc-captured Merry and Pippin. All along, nefarious wizard Saruman awaits the Fellowship members at the Orthanc Tower in Isengard.")));
+        movies.add((new Movie("The Lord of the Rings: The Two Towers", "Frodo and Sam are trekking to Mordor to destroy the One Ring of Power while Gimli, Legolas and Aragorn search for the orc-captured Merry and Pippin. All along, nefarious wizard Saruman awaits the Fellowship members at the Orthanc Tower in Isengard.",List.of())));
         movies.add((new Movie("Back to the Future", "Eighties teenager Marty McFly is accidentally sent back in time to 1955, inadvertently disrupting his parents' first meeting and attracting his mother's romantic interest. Marty must repair the damage to history by rekindling his parents' romance and - with the help of his eccentric inventor friend Doc Brown - return to 1985.")));
         movies.add((new Movie("Interstellar", "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.")));
         movies.add((new Movie("Spirited Away", "A young girl, Chihiro, becomes trapped in a strange new world of spirits. When her parents undergo a mysterious transformation, she must call upon the courage she never knew she had to free her family.")));
@@ -46,14 +55,14 @@ public class Movie {
         movies.add((new Movie("Parasite", "All unemployed, Ki-taek's family takes peculiar interest in the wealthy and glamorous Parks for their livelihood until they get entangled in an unexpected incident.")));
         movies.add((new Movie("Forrest Gump", "A man with a low IQ has accomplished great things in his life and been present during significant historic events—in each case, far exceeding what anyone imagined he could do. But despite all he has achieved, his one true love eludes him.")));
         movies.add((new Movie("Pulp Fiction", "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.")));
-        movies.add((new Movie("Your Name.", "High schoolers Mitsuha and Taki are complete strangers living separate lives. But one night, they suddenly switch places. Mitsuha wakes up in Taki’s body, and he in hers. This bizarre occurrence continues to happen randomly, and the two must adjust their lives around each other.")));
+        movies.add((new Movie("Your Name.", "High schoolers Mitsuha and Taki are complete strangers living separate lives. But one night, they suddenly switch places. Mitsuha wakes up in Taki’s body, and he in hers. This bizarre occurrence continues to happen randomly, and the two must adjust their lives around each other.")));*/
 
-        movies.add((new Movie("Knight and Day", "A young woman gets mixed up with a disgraced spy who is trying to clear his name.")));
-        movies.add((new Movie("The Terminator", "A human soldier is sent from 2029 to 1984 to stop an almost indestructible cyborg killing machine, sent from the same year, which has been programmed to execute a young woman whose unborn son is the key to humanity's future salvation.")));
-        movies.add((new Movie("The Incredibles", "While trying to lead a quiet suburban life, a family of undercover superheroes are forced into action to save the world.")));
-        movies.add((new Movie("Modern Times", "The Tramp struggles to live in modern industrial society with the help of a young homeless woman.")));
-        movies.add((new Movie("The Conjuring", "Paranormal investigators Ed and Lorraine Warren work to help a family terrorized by a dark presence in their farmhouse.")));
-        movies.add((new Movie("toy Story", "A cowboy doll is profoundly threatened and jealous when a new spaceman action figure supplants him as top toy in a boy's bedroom.")));
+        movies.add((new Movie("Knight and Day", "A young woman gets mixed up with a disgraced spy who is trying to clear his name.", List.of("ACTION","SCIENCE_FICTION"))));//ACTION,SCIENCE_FICTION
+        movies.add((new Movie("The Terminator", "A human soldier is sent from 2029 to 1984 to stop an almost indestructible cyborg killing machine, sent from the same year, which has been programmed to execute a young woman whose unborn son is the key to humanity's future salvation.", List.of("ROMANCE","COMEDY","ACTION")))); //ROMANCE
+        movies.add((new Movie("The Incredibles", "While trying to lead a quiet suburban life, a family of undercover superheroes are forced into action to save the world.",List.of("COMEDY","ADVENTURE","ACTION","ANIMATION","FAMILY")))); //
+        movies.add((new Movie("Modern Times", "The Tramp struggles to live in modern industrial society with the help of a young homeless woman.", List.of("COMEDY","DRAMA")))); //
+        movies.add((new Movie("The Conjuring", "Paranormal investigators Ed and Lorraine Warren work to help a family terrorized by a dark presence in their farmhouse.",List.of("HORROR","THRILLER")))); //
+        movies.add((new Movie("Toy Story", "A cowboy doll is profoundly threatened and jealous when a new spaceman action figure supplants him as top toy in a boy's bedroom.", List.of("COMEDY","ANIMATION","FAMILY","ADVENTURE")))); //
 
         return movies;
     }
