@@ -76,25 +76,31 @@ public class Movie {
 
     public static enum Genre {
 
-        ACTION,
-        ADVENTURE,
-        ANIMATION,
-        BIOGRAPHY,
-        COMEDY,
-        CRIME,
-        DRAMA,
-        DOCUMENTARY,
-        FAMILY,
-        FANTASY,
-        HISTORY,
-        HORROR,
-        MUSICAL,
-        MYSTERY,
-        ROMANCE,
-        SCIENCE_FICTION,
-        SPORT,
-        THRILLER,
-        WAR,
-        WESTERN
+        ACTION("Action"),
+        ADVENTURE("Adventure"),
+        ANIMATION("Animation"),
+        BIOGRAPHY("Biography"),
+        COMEDY("Comedy"),
+        CRIME("Crime"),
+        DRAMA("Drama"),
+        DOCUMENTARY("Documentary"),
+        FAMILY("Family"),
+        FANTASY("Fantasy"),
+        HISTORY("History"),
+        HORROR("Horror"),
+        MUSICAL("Musical"),
+        MYSTERY("Mystery"),
+        ROMANCE("Romance"),
+        SCIENCE_FICTION("Science Fiction"),
+        SPORT("Sport"),
+        THRILLER("Thriller"),
+        WAR("War"),
+        WESTERN("Western");
+
+        public final String label;
+
+        private Genre(String lable){
+            this.label = lable;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien.fhmdb;
 
+import at.ac.fhcampuswien.fhmdb.HelperClasses.FilterHelper;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import at.ac.fhcampuswien.fhmdb.ui.MovieCell;
 import com.jfoenix.controls.JFXButton;
@@ -12,7 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -37,6 +38,12 @@ public class HomeController implements Initializable {
 
     private final ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
 
+    final List<Movie.Genre> genreList = allMovies.stream()
+            .flatMap(m -> m.getGenres().stream())
+            .distinct()
+            .sorted()
+            .collect(Collectors.toList());
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         observableMovies.addAll(allMovies);         // add dummy data to observable list
@@ -45,12 +52,14 @@ public class HomeController implements Initializable {
         movieListView.setItems(observableMovies);   // set data of observable list to list view
         movieListView.setCellFactory(movieListView -> new MovieCell()); // use custom cell factory to display data
 
-
         // TODO add genre filter items with genreComboBox.getItems().addAll(...)
+
+
+        genreComboBox.getItems().addAll(genreList);
         genreComboBox.setPromptText("Filter by Genre");
 
-        genreComboBox.setOnAction(event -> {String selectedGenre= (String) genreComboBox.getSelectionModel().getSelectedItem();
-            if (selectedGenre != null && !selectedGenre.isEmpty()) {
+        genreComboBox.setOnAction(event -> {Movie.Genre selectedGenre= (Movie.Genre) genreComboBox.getSelectionModel().getSelectedItem();
+            if (selectedGenre != null) {
                 // Filtere die Filme nach dem ausgewählten Genre
                 ObservableList<Movie> filteredMovies = FXCollections.observableArrayList(
                         observableMovies.stream()
@@ -68,6 +77,20 @@ public class HomeController implements Initializable {
 
         // TODO add event handlers to buttons and call the regarding methods
         // either set event handlers in the fxml file (onAction) or add them here
+
+        searchBtn.setOnAction(actionEvent -> {
+            // Search for the Genre
+
+            // Searches trough the descriptions and title of the movies
+            List<Movie> filteredMovies = FilterHelper.filterMovies(allMovies, searchField.getText(), (Movie.Genre)genreComboBox.getSelectionModel().getSelectedItem());
+
+            observableMovies.clear();
+            System.out.println("Movie Count: "+filteredMovies.size());
+            observableMovies.addAll(filteredMovies);
+            System.out.println("Observable List Size: "+observableMovies.size());
+            movieListView.setItems(observableMovies);
+            //movieListView.refresh();
+        });
 
         // Sort button example:
         sortBtn.setOnAction(actionEvent -> {
