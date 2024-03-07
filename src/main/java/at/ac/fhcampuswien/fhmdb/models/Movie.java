@@ -74,7 +74,7 @@ public class Movie {
         return movies;
     }
 
-    enum Genre {
+    public static enum Genre {
 
         ACTION,
         ADVENTURE,
