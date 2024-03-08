@@ -4,6 +4,11 @@ import at.ac.fhcampuswien.fhmdb.models.Movie;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.ac.fhcampuswien.fhmdb.models.Movie;
+
+import java.util.Collections;
+import java.util.List;
+
 public class FilterHelper {
     // A Helper Class containing methods for filtering. They can be accessed by creating an object of the class.
 
@@ -42,5 +47,25 @@ public class FilterHelper {
         }
 
         return filteredMovieList;
+    }
+
+    /*
+    sorts the List of movies alphabetically by their titles,
+    either ascending if order == true or decending if order == false
+     */
+    public List<Movie> sort(List<Movie> movies, boolean order) {
+        if (movies == null) {
+            throw new NullPointerException();
+        }
+        if (movies.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+
+        if (order) {
+            Collections.sort(movies);
+        } else {
+            movies.sort(Collections.reverseOrder());
+        }
+        return movies;
     }
 }

@@ -1,9 +1,10 @@
 package at.ac.fhcampuswien.fhmdb.models;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Comparable<Movie> {
     private String title;
     private String description;
     // TODO add more properties here
@@ -72,6 +73,11 @@ public class Movie {
         movies.add((new Movie("Toy Story", "A cowboy doll is profoundly threatened and jealous when a new spaceman action figure supplants him as top toy in a boy's bedroom.", List.of(Genre.COMEDY, Genre.ANIMATION, Genre.FAMILY, Genre.ADVENTURE)))); //
 
         return movies;
+    }
+
+    @Override
+    public int compareTo(Movie other) {
+        return this.getTitle().compareTo(other.getTitle()); // Movies are compared by their title; the .compareTo method of String compares them lexicographically
     }
 
     public static enum Genre {
