@@ -12,11 +12,6 @@ import java.util.List;
 public class FilterHelper {
     // A Helper Class containing methods for filtering. They can be accessed by creating an object of the class.
 
-    public static int addOrSubstract(int x, int y, boolean operation) {
-
-        return operation ? x + y: x - y;
-    }
-
     public static List<Movie> filterMovies(List<Movie> movies, String searchString, Movie.Genre genre){
         /*
         for (Movie movie: movies) {
