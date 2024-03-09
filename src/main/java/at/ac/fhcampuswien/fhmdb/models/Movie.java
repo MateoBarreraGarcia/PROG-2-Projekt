@@ -1,9 +1,10 @@
 package at.ac.fhcampuswien.fhmdb.models;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Comparable<Movie> {
     private String title;
     private String description;
     // TODO add more properties here
@@ -75,6 +76,11 @@ public class Movie {
         movies.add(new Movie("Baywatch: The Documentary", "Matt (producer), Nicole Eggert (Summer Quinn) and Jeremy Jackson (Hobie) all three examine why Baywatch became the most watched TV show in the world.", List.of(Genre.DOCUMENTARY)));
 
         return movies;
+    }
+
+    @Override
+    public int compareTo(Movie other) {
+        return this.getTitle().compareTo(other.getTitle()); // Movies are compared by their title; the .compareTo method of String compares them lexicographically
     }
 
     public static enum Genre {

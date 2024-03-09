@@ -44,6 +44,8 @@ public class HomeController implements Initializable {
             .sorted()
             .collect(Collectors.toList());
 
+    private FilterHelper filterHelper = new FilterHelper();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         observableMovies.addAll(allMovies);         // add dummy data to observable list
@@ -97,9 +99,11 @@ public class HomeController implements Initializable {
         sortBtn.setOnAction(actionEvent -> {
             if(sortBtn.getText().equals("Sort (asc)")) {
                 // TODO sort observableMovies ascending
+                observableMovies.setAll(filterHelper.sort(allMovies, true));
                 sortBtn.setText("Sort (desc)");
             } else {
                 // TODO sort observableMovies descending
+                observableMovies.setAll(filterHelper.sort(allMovies, false));
                 sortBtn.setText("Sort (asc)");
             }
         });
