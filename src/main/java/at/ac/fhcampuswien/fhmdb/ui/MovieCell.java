@@ -8,6 +8,15 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.geometry.Pos;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MovieCell extends ListCell<Movie> {
     private final Label title = new Label();
@@ -29,7 +38,18 @@ public class MovieCell extends ListCell<Movie> {
                             ? movie.getDescription()
                             : "No description available"
             );
-            genres.setText("Genres: ");
+
+            List<String> stringGenres=new ArrayList<>();
+            for (Movie.Genre a:movie.getGenres()) {
+                stringGenres.add(a.label);
+            }
+            genres.setText(String.join(", ",stringGenres));
+            genres.getStyleClass().add("text-italic");
+
+
+
+
+
 
             // color scheme
             title.getStyleClass().add("text-yellow");
@@ -43,7 +63,7 @@ public class MovieCell extends ListCell<Movie> {
             detail.setWrapText(true);
             layout.setPadding(new Insets(10));
             layout.spacingProperty().set(10);
-            layout.alignmentProperty().set(javafx.geometry.Pos.CENTER_LEFT);
+            layout.alignmentProperty().set(Pos.CENTER_LEFT);
             setGraphic(layout);
         }
     }

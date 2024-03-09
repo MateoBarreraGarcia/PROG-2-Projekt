@@ -16,7 +16,7 @@ public class Movie {
         this.genres = genres;
     }
 
-    public List<Genre> getGenres()
+    public List <Genre> getGenres()
     {
         return genres;
     }
@@ -70,6 +70,9 @@ public class Movie {
         movies.add((new Movie("Modern Times", "The Tramp struggles to live in modern industrial society with the help of a young homeless woman.", List.of(Genre.COMEDY, Genre.DRAMA)))); //
         movies.add((new Movie("The Conjuring", "Paranormal investigators Ed and Lorraine Warren work to help a family terrorized by a dark presence in their farmhouse.", List.of(Genre.HORROR, Genre.THRILLER)))); //
         movies.add((new Movie("Toy Story", "A cowboy doll is profoundly threatened and jealous when a new spaceman action figure supplants him as top toy in a boy's bedroom.", List.of(Genre.COMEDY, Genre.ANIMATION, Genre.FAMILY, Genre.ADVENTURE)))); //
+        movies.add(new Movie("Django Unchained", "With the help of a German bounty-hunter, a freed slave sets out to rescue his wife from a brutal plantation owner in Mississippi.", List.of(Genre.WESTERN, Genre.DRAMA)));
+        movies.add(new Movie("The Iron Claw", "The true story of the inseparable Von Erich brothers, who made history in the intensely competitive world of professional wrestling in the early 1980s.", List.of(Genre.SPORT, Genre.BIOGRAPHY, Genre.DRAMA)));
+        movies.add(new Movie("Baywatch: The Documentary", "Matt (producer), Nicole Eggert (Summer Quinn) and Jeremy Jackson (Hobie) all three examine why Baywatch became the most watched TV show in the world.", List.of(Genre.DOCUMENTARY)));
 
         return movies;
     }
