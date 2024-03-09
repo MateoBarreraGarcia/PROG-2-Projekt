@@ -1,6 +1,7 @@
 package at.ac.fhcampuswien.fhmdb.HelperClasses;
 
 import at.ac.fhcampuswien.fhmdb.models.Movie;
+import at.ac.fhcampuswien.fhmdb.models.Movie.Genre;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -72,6 +73,44 @@ class FilterHelperTest {
         FilterHelper filterHelper = new FilterHelper();
         // when and then
         assertThrows(NullPointerException.class, () -> filterHelper.sort(null, true));
+    }
+
+    void checks_if_Movie_has_at_least_one_Genre(){
+        // given
+        List <Movie> movies = Movie.initializeMovies();
+
+        //when and then
+        for (Movie movie : movies){
+            //then
+            assertTrue(!movie.getGenres().isEmpty(), "Film \"" + movie.getTitle()+"\" kein Genre");
+        }
+
+    }
+
+    void check_Movie_with_valid_Genre(){
+        //given
+        String title = "Avatar";
+        String description = "Description";
+        Genre validGenre = Movie.Genre.ACTION;
+
+        //when
+        Movie movie = new Movie(title,description,List.of(validGenre));
+
+        //then
+        assertNotNull(movie);
+        assertEquals(title, movie.getTitle());
+        assertEquals(description, movie.getDescription());
+        assertEquals(validGenre, movie.getGenres());
+    }
+
+    void check_Movie_with_unknown_Genre(){
+        //given
+        String title = "Movie Titel of the unknown Genre";
+        String description = "Movie Description of the unknown Genre";
+        Genre unknownGenre = Genre.UNKNOWN;
+
+        //when and then
+        assertThrows(IllegalArgumentException.class, ()->new Movie(title, description, List.of(unknownGenre)));
     }
 
 }

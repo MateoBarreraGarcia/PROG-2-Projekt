@@ -104,12 +104,26 @@ public class Movie implements Comparable<Movie> {
         SPORT("Sport"),
         THRILLER("Thriller"),
         WAR("War"),
-        WESTERN("Western");
+        WESTERN("Western"),
+
+        UNKNOWN ("Unknown");
+
 
         public final String label;
 
         private Genre(String lable){
             this.label = lable;
+        }
+        public String getLabel(){
+            return label;
+        }
+        public static boolean validGenre (Genre genre){
+            for (Genre g:Genre.values()){
+                if (g==genre){
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
