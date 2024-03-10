@@ -11,6 +11,33 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FilterHelperTest {
 
+    // Tests for public List<Movie> filterMovies(List<Movie> movies, String searchString, Movie.Genre genre)
+    @Test
+    void if_query_is_empty_and_a_genre_is_selected_only_movies_with_that_genre_are_returned() {
+        //given
+        FilterHelper filterHelper = new FilterHelper();
+
+        Movie firstMovie = new Movie("Dune", "Description", List.of(Movie.Genre.ADVENTURE, Genre.ROMANCE));
+        Movie secondMovie = new Movie("Dune: Part Two", "Description", List.of(Movie.Genre.ACTION));
+        Movie thirdMovie = new Movie("Spirited Away", "Description", List.of(Genre.HISTORY));
+        Movie fourthMovie = new Movie("The Empire Strikes Back", "Description", List.of(Movie.Genre.ADVENTURE));
+
+        List<Movie> movies = new ArrayList<>();
+        movies.add(firstMovie);
+        movies.add(secondMovie);
+        movies.add(thirdMovie);
+        movies.add(fourthMovie);
+
+        String query = "";
+        Movie.Genre genre = Genre.ADVENTURE;
+
+        List<Movie> expected = List.of(firstMovie,fourthMovie);
+        // when
+        List<Movie> actual = FilterHelper.filterMovies(movies, query, genre);
+        // then
+        assertEquals(expected, actual);
+    }
+
     // Tests for public List<Movie> sort(List<Movie> movies, boolean order)
     @Test
     void a_MovieList_is_sorted_in_ascending_lexicographic_order_if_order_parameter_equals_true()
@@ -78,7 +105,32 @@ class FilterHelperTest {
         // when and then
         assertThrows(NullPointerException.class, () -> filterHelper.sort(null, true));
     }
+    @Test
+    void if_no_query_was_set_and_no_genre_selected_the_initial_list_is_returned(){
+        // given
+        FilterHelper filterHelper = new FilterHelper();
 
+        Movie firstMovie = new Movie("Dune", "Description", List.of(Movie.Genre.ADVENTURE, Genre.ROMANCE));
+        Movie secondMovie = new Movie("Dune: Part Two", "Description", List.of(Movie.Genre.ACTION));
+        Movie thirdMovie = new Movie("Spirited Away", "Description", List.of(Genre.HISTORY));
+        Movie fourthMovie = new Movie("The Empire Strikes Back", "Description", List.of(Movie.Genre.ADVENTURE));
+
+        List<Movie> movies = new ArrayList<>();
+        movies.add(firstMovie);
+        movies.add(secondMovie);
+        movies.add(thirdMovie);
+        movies.add(fourthMovie);
+
+        String query = "";
+        Movie.Genre genre = null;
+
+        List<Movie> expected = movies;
+        // when
+        List<Movie> actual = FilterHelper.filterMovies(movies, query, genre);
+        // then
+        assertEquals(expected, actual);
+
+    }
     void checks_if_Movie_has_at_least_one_Genre()
     {
         // given
@@ -91,7 +143,29 @@ class FilterHelperTest {
         }
 
     }
+    @Test
+    void if_a_query_was_set_and_no_genre_selected_only_movies_whos_title_or_description_contain_the_query_are_returned(){
+        //given
+        FilterHelper filterHelper = new FilterHelper();
 
+        Movie firstMovie= new Movie("Knight and Day", "Description", List.of(Genre.ACTION, Genre.SCIENCE_FICTION));
+        Movie secondMovie=new Movie("The Terminator", "Description", List.of(Genre.ROMANCE, Genre.ACTION, Genre.ACTION));
+        Movie thirdMovie=new Movie("The Incredibles", "Description", List.of(Genre.COMEDY, Movie.Genre.ADVENTURE, Genre.ACTION, Genre.ANIMATION, Genre.FAMILY));
+
+        List<Movie> movies = new ArrayList<>();
+        movies.add(firstMovie);
+        movies.add(secondMovie);
+        movies.add(thirdMovie);
+
+        String query = "Terminator";
+
+        List<Movie> expected = List.of(secondMovie);
+        //when
+        List<Movie> actual = FilterHelper.filterMovies(movies, query, null);
+        // then
+        assertEquals(expected, actual);
+
+    }
     void check_Movie_with_valid_Genre()
     {
         //given
@@ -118,6 +192,30 @@ class FilterHelperTest {
 
         //when and then
         assertThrows(IllegalArgumentException.class, () -> new Movie(title, description, List.of(unknownGenre)));
+    }
+    @Test
+    void if_a_query_was_set_and_a_genre_is_selected_only_movies_with_that_genre_and_whos_title_or_description_contain_the_query_are_returned (){
+        //given
+        FilterHelper filterHelper = new FilterHelper();
+
+        Movie firstMovie= new Movie("Knight and Day", "Description", List.of(Genre.ACTION, Genre.SCIENCE_FICTION));
+        Movie secondMovie=new Movie("The Terminator", "Description", List.of(Genre.ROMANCE, Genre.ACTION, Genre.ACTION));
+        Movie thirdMovie=new Movie("The Incredibles", "Description", List.of(Genre.COMEDY, Movie.Genre.ADVENTURE, Genre.ACTION, Genre.ANIMATION, Genre.FAMILY));
+
+        List<Movie> movies = new ArrayList<>();
+        movies.add(firstMovie);
+        movies.add(secondMovie);
+        movies.add(thirdMovie);
+
+        String query = "Terminator";
+        Genre genre = Genre.ACTION;
+
+        List<Movie> expected = List.of(secondMovie);
+        //when
+        List<Movie> actual = FilterHelper.filterMovies(movies, query, genre);
+        // then
+        assertEquals(expected, actual);
+
     }
 
     private List<Movie> createTestDataList()
