@@ -59,8 +59,9 @@ public class HomeController implements Initializable {
         // TODO add genre filter items with genreComboBox.getItems().addAll(...)
 
         //to filter movies by genre
+        genreList.add(0,Movie.Genre.ALL);
         genreComboBox.getItems().addAll(genreList);
-        genreComboBox.setPromptText("Filter by Genre");
+        genreComboBox.setValue(Movie.Genre.ALL);
 
         genreComboBox.setOnAction(event -> {
 
@@ -76,11 +77,12 @@ public class HomeController implements Initializable {
 
             if (filteredMovies.isEmpty()) {
                 observableMovies.clear();
-                //movieListView.setItems(new Label("No Movies found.")); // Add
+                movieListView.setPlaceholder(new Label("No Movies found"));
+            } else {
+                observableMovies.setAll(filteredMovies);
+                movieListView.setItems(observableMovies);
+                movieListView.setCellFactory(movieListView -> new MovieCell());
             }
-            observableMovies.setAll(filteredMovies);
-            movieListView.setItems(observableMovies);
-            movieListView.setCellFactory(movieListView -> new MovieCell());
         });
 
         // Sort button example:

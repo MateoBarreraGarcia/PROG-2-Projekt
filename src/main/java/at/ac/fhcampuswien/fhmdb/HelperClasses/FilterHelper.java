@@ -17,7 +17,7 @@ public class FilterHelper {
         if (movies == null) throw new NullPointerException();
         if (movies.isEmpty()) throw new IllegalArgumentException();
 
-        return (genre != null)?
+        return (genre != Movie.Genre.ALL)?
                  movies.stream().filter(x -> x.getGenres().contains(genre)).filter(x -> x.getTitle().toLowerCase().contains(searchString.trim().toLowerCase()) || x.getDescription().toLowerCase().contains(searchString.trim().toLowerCase())).toList()
                 : movies.stream().filter(x -> x.getTitle().toLowerCase().contains(searchString.trim().toLowerCase()) || x.getDescription().toLowerCase().contains(searchString.trim().toLowerCase())).toList();
     }

@@ -84,7 +84,7 @@ public class Movie implements Comparable<Movie> {
     }
 
     public static enum Genre {
-
+        ALL ("All"),
         ACTION("Action"),
         ADVENTURE("Adventure"),
         ANIMATION("Animation"),
@@ -106,7 +106,6 @@ public class Movie implements Comparable<Movie> {
         WAR("War"),
         WESTERN("Western"),
         UNKNOWN ("Unknown");    // Used for Genres which do not fit the predefined Genres
-
 
         public final String label;
 
