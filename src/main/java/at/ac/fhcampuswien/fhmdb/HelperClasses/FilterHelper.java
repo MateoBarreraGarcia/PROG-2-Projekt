@@ -12,14 +12,14 @@ import java.util.List;
 public class FilterHelper {
     // A Helper Class containing methods for filtering. They can be accessed by creating an object of the class.
 
-    public static List<Movie> filterMovies(List<Movie> movies, String searchString, Movie.Genre genre){
+    public List<Movie> filterMovies(List<Movie> movies, String searchString, Movie.Genre genre){
         // Check for Null or empty
         if (movies == null) throw new NullPointerException();
         if (movies.isEmpty()) throw new IllegalArgumentException();
 
         return (genre != null)?
-                 movies.stream().filter(x -> x.getGenres().contains(genre)).filter(x -> x.getTitle().contains(searchString) || x.getDescription().contains(searchString)).toList()
-                : movies.stream().filter(x -> x.getTitle().contains(searchString) || x.getDescription().contains(searchString)).toList();
+                 movies.stream().filter(x -> x.getGenres().contains(genre)).filter(x -> x.getTitle().toLowerCase().contains(searchString.trim().toLowerCase()) || x.getDescription().toLowerCase().contains(searchString.trim().toLowerCase())).toList()
+                : movies.stream().filter(x -> x.getTitle().toLowerCase().contains(searchString.trim().toLowerCase()) || x.getDescription().toLowerCase().contains(searchString.trim().toLowerCase())).toList();
     }
 
     /*

@@ -33,7 +33,7 @@ class FilterHelperTest {
 
         List<Movie> expected = List.of(firstMovie,fourthMovie);
         // when
-        List<Movie> actual = FilterHelper.filterMovies(movies, query, genre);
+        List<Movie> actual = filterHelper.filterMovies(movies, query, genre);
         // then
         assertEquals(expected, actual);
     }
@@ -126,7 +126,7 @@ class FilterHelperTest {
 
         List<Movie> expected = movies;
         // when
-        List<Movie> actual = FilterHelper.filterMovies(movies, query, genre);
+        List<Movie> actual = filterHelper.filterMovies(movies, query, genre);
         // then
         assertEquals(expected, actual);
 
@@ -161,7 +161,7 @@ class FilterHelperTest {
 
         List<Movie> expected = List.of(secondMovie);
         //when
-        List<Movie> actual = FilterHelper.filterMovies(movies, query, null);
+        List<Movie> actual = filterHelper.filterMovies(movies, query, null);
         // then
         assertEquals(expected, actual);
 
@@ -212,7 +212,7 @@ class FilterHelperTest {
 
         List<Movie> expected = List.of(secondMovie);
         //when
-        List<Movie> actual = FilterHelper.filterMovies(movies, query, genre);
+        List<Movie> actual = filterHelper.filterMovies(movies, query, genre);
         // then
         assertEquals(expected, actual);
 

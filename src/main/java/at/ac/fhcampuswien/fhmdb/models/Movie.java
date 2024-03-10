@@ -105,7 +105,7 @@ public class Movie implements Comparable<Movie> {
         THRILLER("Thriller"),
         WAR("War"),
         WESTERN("Western"),
-        UNKNOWN ("Unknown");
+        UNKNOWN ("Unknown");    // Used for Genres which do not fit the predefined Genres
 
 
         public final String label;
