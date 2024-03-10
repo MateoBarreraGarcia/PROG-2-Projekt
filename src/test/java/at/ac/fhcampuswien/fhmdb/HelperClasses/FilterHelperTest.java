@@ -11,37 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FilterHelperTest {
 
-    // Tests for public List<Movie> filterMovies(List<Movie> movies, String searchString, Movie.Genre genre)
-    @Test
-    void if_query_is_empty_and_a_genre_is_selected_only_movies_with_that_genre_are_returned() {
-        //given
-        FilterHelper filterHelper = new FilterHelper();
-
-        Movie firstMovie = new Movie("Dune", "Description", List.of(Movie.Genre.ADVENTURE, Genre.ROMANCE));
-        Movie secondMovie = new Movie("Dune: Part Two", "Description", List.of(Movie.Genre.ACTION));
-        Movie thirdMovie = new Movie("Spirited Away", "Description", List.of(Genre.HISTORY));
-        Movie fourthMovie = new Movie("The Empire Strikes Back", "Description", List.of(Movie.Genre.ADVENTURE));
-
-        List<Movie> movies = new ArrayList<>();
-        movies.add(firstMovie);
-        movies.add(secondMovie);
-        movies.add(thirdMovie);
-        movies.add(fourthMovie);
-
-        String query = "";
-        Movie.Genre genre = Genre.ADVENTURE;
-
-        List<Movie> expected = List.of(firstMovie,fourthMovie);
-        // when
-        List<Movie> actual = filterHelper.filterMovies(movies, query, genre);
-        // then
-        assertEquals(expected, actual);
-    }
-
     // Tests for public List<Movie> sort(List<Movie> movies, boolean order)
     @Test
-    void a_MovieList_is_sorted_in_ascending_lexicographic_order_if_order_parameter_equals_true()
-    {
+    void a_MovieList_is_sorted_in_ascending_lexicographic_order_if_order_parameter_equals_true() {
         // given
         FilterHelper filterHelper = new FilterHelper();
 
@@ -64,8 +36,7 @@ class FilterHelperTest {
     }
 
     @Test
-    void a_MovieList_is_sorted_in_descending_lexicographic_order_if_order_parameter_equals_false()
-    {
+    void a_MovieList_is_sorted_in_descending_lexicographic_order_if_order_parameter_equals_false() {
         // given
         FilterHelper filterHelper = new FilterHelper();
 
@@ -88,8 +59,7 @@ class FilterHelperTest {
     }
 
     @Test
-    void a_MovieList_cannot_be_sorted_if_it_is_empty()
-    {
+    void a_MovieList_cannot_be_sorted_if_it_is_empty() {
         // given
         FilterHelper filterHelper = new FilterHelper();
         List<Movie> movies = new ArrayList<>();
@@ -98,15 +68,72 @@ class FilterHelperTest {
     }
 
     @Test
-    void a_MovieList_cannot_be_sorted_if_it_is_null()
-    {
+    void a_MovieList_cannot_be_sorted_if_it_is_null() {
         // given
         FilterHelper filterHelper = new FilterHelper();
         // when and then
         assertThrows(NullPointerException.class, () -> filterHelper.sort(null, true));
     }
+
+    // Tests for public List<Movie> filterMovies(List<Movie> movies, String searchString, Movie.Genre genre)
     @Test
-    void if_no_query_was_set_and_no_genre_selected_the_initial_list_is_returned(){
+    void if_the_movielist_to_filter_is_empty_an_error_is_thrown() {
+        // given
+        FilterHelper filterHelper = new FilterHelper();
+        List<Movie> movies = new ArrayList<>();
+        // when and then
+        assertThrows(IllegalArgumentException.class, () -> filterHelper.filterMovies(movies, "", null));
+    }
+
+    @Test
+    void if_the_movielist_to_filter_is_null_an_error_is_thrown() {
+        // given
+        FilterHelper filterHelper = new FilterHelper();
+        // when and then
+        assertThrows(NullPointerException.class, () -> filterHelper.filterMovies(null, "", null));
+    }
+
+    @Test
+    void if_the_query_is_null_an_error_is_thrown() {
+        // given
+        FilterHelper filterHelper = new FilterHelper();
+        List<Movie> movies = List.of(new Movie("Dune", "Description", List.of(Movie.Genre.ADVENTURE, Genre.ROMANCE)),
+                new Movie("Dune: Part Two", "Description", List.of(Movie.Genre.ACTION)),
+                new Movie("Spirited Away", "Description", List.of(Genre.HISTORY)),
+                new Movie("The Empire Strikes Back", "Description", List.of(Movie.Genre.ADVENTURE)));
+
+        // when and then
+        assertThrows(NullPointerException.class, () -> filterHelper.filterMovies(movies, null, null));
+    }
+
+    @Test
+    void if_query_is_empty_and_a_genre_is_selected_only_movies_with_that_genre_are_returned() {
+        //given
+        FilterHelper filterHelper = new FilterHelper();
+
+        Movie firstMovie = new Movie("Dune", "Description", List.of(Movie.Genre.ADVENTURE, Genre.ROMANCE));
+        Movie secondMovie = new Movie("Dune: Part Two", "Description", List.of(Movie.Genre.ACTION));
+        Movie thirdMovie = new Movie("Spirited Away", "Description", List.of(Genre.HISTORY));
+        Movie fourthMovie = new Movie("The Empire Strikes Back", "Description", List.of(Movie.Genre.ADVENTURE));
+
+        List<Movie> movies = new ArrayList<>();
+        movies.add(firstMovie);
+        movies.add(secondMovie);
+        movies.add(thirdMovie);
+        movies.add(fourthMovie);
+
+        String query = "";
+        Movie.Genre genre = Genre.ADVENTURE;
+
+        List<Movie> expected = List.of(firstMovie, fourthMovie);
+        // when
+        List<Movie> actual = filterHelper.filterMovies(movies, query, genre);
+        // then
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void if_no_query_was_set_and_no_genre_selected_the_initial_list_is_returned() {
         // given
         FilterHelper filterHelper = new FilterHelper();
 
@@ -131,26 +158,15 @@ class FilterHelperTest {
         assertEquals(expected, actual);
 
     }
-    void checks_if_Movie_has_at_least_one_Genre()
-    {
-        // given
-        List<Movie> movies = Movie.initializeMovies();
 
-        //when and then
-        for (Movie movie : movies) {
-            //then
-            assertTrue(!movie.getGenres().isEmpty(), "Film \"" + movie.getTitle() + "\" kein Genre");
-        }
-
-    }
     @Test
-    void if_a_query_was_set_and_no_genre_selected_only_movies_whos_title_or_description_contain_the_query_are_returned(){
+    void if_a_query_was_set_and_no_genre_selected_only_movies_whos_title_or_description_contain_the_query_are_returned() {
         //given
         FilterHelper filterHelper = new FilterHelper();
 
-        Movie firstMovie= new Movie("Knight and Day", "Description", List.of(Genre.ACTION, Genre.SCIENCE_FICTION));
-        Movie secondMovie=new Movie("The Terminator", "Description", List.of(Genre.ROMANCE, Genre.ACTION, Genre.ACTION));
-        Movie thirdMovie=new Movie("The Incredibles", "Description", List.of(Genre.COMEDY, Movie.Genre.ADVENTURE, Genre.ACTION, Genre.ANIMATION, Genre.FAMILY));
+        Movie firstMovie = new Movie("Knight and Day", "Description", List.of(Genre.ACTION, Genre.SCIENCE_FICTION));
+        Movie secondMovie = new Movie("The Terminator", "Description", List.of(Genre.ROMANCE, Genre.ACTION, Genre.ACTION));
+        Movie thirdMovie = new Movie("The Incredibles", "Description", List.of(Genre.COMEDY, Movie.Genre.ADVENTURE, Genre.ACTION, Genre.ANIMATION, Genre.FAMILY));
 
         List<Movie> movies = new ArrayList<>();
         movies.add(firstMovie);
@@ -166,41 +182,15 @@ class FilterHelperTest {
         assertEquals(expected, actual);
 
     }
-    void check_Movie_with_valid_Genre()
-    {
-        //given
-        String title = "Avatar";
-        String description = "Description";
-        Genre validGenre = Movie.Genre.ACTION;
 
-        //when
-        Movie movie = new Movie(title, description, List.of(validGenre));
-
-        //then
-        assertNotNull(movie);
-        assertEquals(title, movie.getTitle());
-        assertEquals(description, movie.getDescription());
-        assertEquals(validGenre, movie.getGenres());
-    }
-
-    void check_Movie_with_unknown_Genre()
-    {
-        //given
-        String title = "Movie Titel of the unknown Genre";
-        String description = "Movie Description of the unknown Genre";
-        Genre unknownGenre = Genre.UNKNOWN;
-
-        //when and then
-        assertThrows(IllegalArgumentException.class, () -> new Movie(title, description, List.of(unknownGenre)));
-    }
     @Test
-    void if_a_query_was_set_and_a_genre_is_selected_only_movies_with_that_genre_and_whos_title_or_description_contain_the_query_are_returned (){
+    void if_a_query_was_set_and_a_genre_is_selected_only_movies_with_that_genre_and_whos_title_or_description_contain_the_query_are_returned() {
         //given
         FilterHelper filterHelper = new FilterHelper();
 
-        Movie firstMovie= new Movie("Knight and Day", "Description", List.of(Genre.ACTION, Genre.SCIENCE_FICTION));
-        Movie secondMovie=new Movie("The Terminator", "Description", List.of(Genre.ROMANCE, Genre.ACTION, Genre.ACTION));
-        Movie thirdMovie=new Movie("The Incredibles", "Description", List.of(Genre.COMEDY, Movie.Genre.ADVENTURE, Genre.ACTION, Genre.ANIMATION, Genre.FAMILY));
+        Movie firstMovie = new Movie("Knight and Day", "Description", List.of(Genre.ACTION, Genre.SCIENCE_FICTION));
+        Movie secondMovie = new Movie("The Terminator", "Description", List.of(Genre.ROMANCE, Genre.ACTION, Genre.ACTION));
+        Movie thirdMovie = new Movie("The Incredibles", "Description", List.of(Genre.COMEDY, Movie.Genre.ADVENTURE, Genre.ACTION, Genre.ANIMATION, Genre.FAMILY));
 
         List<Movie> movies = new ArrayList<>();
         movies.add(firstMovie);
@@ -218,8 +208,7 @@ class FilterHelperTest {
 
     }
 
-    private List<Movie> createTestDataList()
-    {
+    private List<Movie> createTestDataList() {
         List<Movie> movies = new ArrayList<>();
         movies.add(new Movie("1917", "At the height of the First World War, two young British soldiers must cross enemy territory and deliver a message that will stop a deadly attack on hundreds of soldiers.", List.of(Genre.DRAMA, Genre.WAR)));
         movies.add((new Movie("The Lord of the Rings: The Two Towers", "Frodo and Sam are trekking to Mordor to destroy the One Ring of Power while Gimli, Legolas and Aragorn search for the orc-captured Merry and Pippin. All along, nefarious wizard Saruman awaits the Fellowship members at the Orthanc Tower in Isengard.", List.of(Genre.FANTASY, Genre.ADVENTURE))));
@@ -248,8 +237,7 @@ class FilterHelperTest {
     }
 
     @Test
-    void if_a_query_was_set_but_not_found_an_empty_list_is_returned()
-    {
+    void if_a_query_was_set_but_not_found_an_empty_list_is_returned() {
         // given
         FilterHelper filterHelper = new FilterHelper();
 
@@ -263,8 +251,7 @@ class FilterHelperTest {
     }
 
     @Test
-    void if_a_genre_was_selected_but_not_found_an_empty_list_is_returned()
-    {
+    void if_a_genre_was_selected_but_not_found_an_empty_list_is_returned() {
         // given
         FilterHelper filterHelper = new FilterHelper();
 
@@ -278,8 +265,7 @@ class FilterHelperTest {
     }
 
     @Test
-    void leading_and_trailing_spaces_in_the_query_are_removed_and_the_filtering_is_continued_with_the_resulting_string()
-    {
+    void leading_and_trailing_spaces_in_the_query_are_removed_and_the_filtering_is_continued_with_the_resulting_string() {
         // given
         FilterHelper filterHelper = new FilterHelper();
 
