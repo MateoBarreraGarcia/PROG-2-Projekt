@@ -2,6 +2,7 @@ package at.ac.fhcampuswien.fhmdb.HelperClasses;
 
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import at.ac.fhcampuswien.fhmdb.models.Movie.Genre;
+import org.apache.maven.surefire.shared.lang3.ObjectUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -31,11 +32,41 @@ class FilterHelperTest {
         String query = "";
         Movie.Genre genre = Genre.ADVENTURE;
 
-        List<Movie> expected = List.of(firstMovie,fourthMovie);
+        List<Movie> expected = List.of(firstMovie, fourthMovie);
         // when
         List<Movie> actual = FilterHelper.filterMovies(movies, query, genre);
         // then
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void if_the_movielist_to_filter_is_empty_an_error_is_thrown() {
+        // given
+        FilterHelper filterHelper = new FilterHelper();
+        List<Movie> movies = new ArrayList<>();
+        // when and then
+        assertThrows(IllegalArgumentException.class, () -> FilterHelper.filterMovies(movies, "", null));
+    }
+
+    @Test
+    void if_the_movielist_to_filter_is_null_an_error_is_thrown() {
+        // given
+        FilterHelper filterHelper = new FilterHelper();
+        // when and then
+        assertThrows(NullPointerException.class, () -> FilterHelper.filterMovies(null, "", null));
+    }
+
+    @Test
+    void if_the_query_is_null_an_error_is_thrown() {
+        // given
+        FilterHelper filterHelper = new FilterHelper();
+        List<Movie> movies = List.of(new Movie("Dune", "Description", List.of(Movie.Genre.ADVENTURE, Genre.ROMANCE)),
+                new Movie("Dune: Part Two", "Description", List.of(Movie.Genre.ACTION)),
+                new Movie("Spirited Away", "Description", List.of(Genre.HISTORY)),
+                new Movie("The Empire Strikes Back", "Description", List.of(Movie.Genre.ADVENTURE)));
+
+        // when and then
+        assertThrows(NullPointerException.class, () -> FilterHelper.filterMovies(movies, null, null));
     }
 
     // Tests for public List<Movie> sort(List<Movie> movies, boolean order)
@@ -55,7 +86,7 @@ class FilterHelperTest {
         movies.add(firstMovie);
         movies.add(thirdMovie);
 
-        List<Movie> expected = List.of(firstMovie,secondMovie,thirdMovie,fourthMovie);
+        List<Movie> expected = List.of(firstMovie, secondMovie, thirdMovie, fourthMovie);
         // when
         List<Movie> actual = filterHelper.sort(movies, true);
         // then
@@ -103,27 +134,27 @@ class FilterHelperTest {
     }
 
     @Test
-    void checks_if_Movie_has_at_least_one_Genre(){
+    void checks_if_Movie_has_at_least_one_Genre() {
         // given
-        List <Movie> movies = Movie.initializeMovies();
+        List<Movie> movies = Movie.initializeMovies();
 
         //when and then
-        for (Movie movie : movies){
+        for (Movie movie : movies) {
             //then
-            assertTrue(!movie.getGenres().isEmpty(), "Film \"" + movie.getTitle()+"\" kein Genre");
+            assertTrue(!movie.getGenres().isEmpty(), "Film \"" + movie.getTitle() + "\" kein Genre");
         }
 
     }
 
     @Test
-    void check_Movie_with_valid_Genre(){
+    void check_Movie_with_valid_Genre() {
         //given
         String title = "Avatar";
         String description = "Description";
         Genre validGenre = Movie.Genre.ACTION;
 
         //when
-        Movie movie = new Movie(title,description,List.of(validGenre));
+        Movie movie = new Movie(title, description, List.of(validGenre));
 
         //then
         assertNotNull(movie);
@@ -133,14 +164,14 @@ class FilterHelperTest {
     }
 
     @Test
-    void check_Movie_with_unknown_Genre(){
+    void check_Movie_with_unknown_Genre() {
         //given
         String title = "Movie Titel of the unknown Genre";
         String description = "Movie Description of the unknown Genre";
         Genre unknownGenre = Genre.UNKNOWN;
 
         //when and then
-        assertThrows(IllegalArgumentException.class, ()->new Movie(title, description, List.of(unknownGenre)));
+        assertThrows(IllegalArgumentException.class, () -> new Movie(title, description, List.of(unknownGenre)));
     }
 
 }
