@@ -82,7 +82,7 @@ class FilterHelperTest {
         FilterHelper filterHelper = new FilterHelper();
         List<Movie> movies = new ArrayList<>();
         // when and then
-        assertThrows(IllegalArgumentException.class, () -> filterHelper.filterMovies(movies, "", null));
+        assertThrows(IllegalArgumentException.class, () -> filterHelper.filterMovies(movies, "", Genre.ALL));
     }
 
     @Test
@@ -90,7 +90,7 @@ class FilterHelperTest {
         // given
         FilterHelper filterHelper = new FilterHelper();
         // when and then
-        assertThrows(NullPointerException.class, () -> filterHelper.filterMovies(null, "", null));
+        assertThrows(NullPointerException.class, () -> filterHelper.filterMovies(null, "", Genre.ALL));
     }
 
     @Test
@@ -103,7 +103,7 @@ class FilterHelperTest {
                 new Movie("The Empire Strikes Back", "Description", List.of(Movie.Genre.ADVENTURE)));
 
         // when and then
-        assertThrows(NullPointerException.class, () -> filterHelper.filterMovies(movies, null, null));
+        assertThrows(NullPointerException.class, () -> filterHelper.filterMovies(movies, null, Genre.ALL));
     }
 
     @Test
@@ -149,7 +149,7 @@ class FilterHelperTest {
         movies.add(fourthMovie);
 
         String query = "";
-        Movie.Genre genre = null;
+        Movie.Genre genre = Genre.ALL;
 
         List<Movie> expected = movies;
         // when
@@ -177,7 +177,7 @@ class FilterHelperTest {
 
         List<Movie> expected = List.of(secondMovie);
         //when
-        List<Movie> actual = filterHelper.filterMovies(movies, query, null);
+        List<Movie> actual = filterHelper.filterMovies(movies, query, Genre.ALL);
         // then
         assertEquals(expected, actual);
 
@@ -245,7 +245,7 @@ class FilterHelperTest {
 
         List<Movie> expected = new ArrayList<>();
         // when
-        List<Movie> actual = filterHelper.filterMovies(movies, "ThisIsAQuery", null);
+        List<Movie> actual = filterHelper.filterMovies(movies, "ThisIsAQuery", Genre.ALL);
         // then
         assertEquals(expected, actual);
     }
@@ -273,7 +273,7 @@ class FilterHelperTest {
 
         List<Movie> expected = List.of(movies.get(13));
         // when
-        List<Movie> actual = filterHelper.filterMovies(movies, "       Knight and Day      ", null);
+        List<Movie> actual = filterHelper.filterMovies(movies, "       Knight and Day      ", Genre.ALL);
         // then
         assertEquals(expected, actual);
     }

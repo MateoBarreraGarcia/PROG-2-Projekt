@@ -79,8 +79,6 @@ public class HomeController implements Initializable {
                 observableMovies.clear();
                 movieListView.setPlaceholder(new Label("No Movies found"));
             } else {
-                //observableMovies.clear();
-                //observableMovies.setAll(filteredMovies);
                 observableMovies = FXCollections.observableArrayList(filteredMovies);
                 movieListView.setItems(observableMovies);
                 movieListView.setCellFactory(movieListView -> new MovieCell());
