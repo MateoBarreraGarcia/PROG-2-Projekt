@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -47,7 +48,8 @@ public class HomeController implements Initializable {
     private FilterHelper filterHelper = new FilterHelper();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
         observableMovies.addAll(allMovies);         // add dummy data to observable list
 
         // initialize UI stuff
@@ -60,8 +62,9 @@ public class HomeController implements Initializable {
         genreComboBox.getItems().addAll(genreList);
         genreComboBox.setPromptText("Filter by Genre");
 
-        genreComboBox.setOnAction(event -> {Movie.Genre selectedGenre= (Movie.Genre)
-                genreComboBox.getSelectionModel().getSelectedItem();
+        genreComboBox.setOnAction(event -> {
+            Movie.Genre selectedGenre = (Movie.Genre)
+                    genreComboBox.getSelectionModel().getSelectedItem();
             if (selectedGenre != null) {
                 // Filtere die Filme nach dem ausgewählten Genre
                 ObservableList<Movie> filteredMovies = FXCollections.observableArrayList(
@@ -77,27 +80,24 @@ public class HomeController implements Initializable {
         });
 
 
-
         // TODO add event handlers to buttons and call the regarding methods
         // either set event handlers in the fxml file (onAction) or add them here
 
         searchBtn.setOnAction(actionEvent -> {
-            // Search for the Genre
+            List<Movie> filteredMovies = FilterHelper.filterMovies(allMovies, searchField.getText(), (Movie.Genre) genreComboBox.getSelectionModel().getSelectedItem());
 
-            // Searches trough the descriptions and title of the movies
-            List<Movie> filteredMovies = FilterHelper.filterMovies(allMovies, searchField.getText(), (Movie.Genre)genreComboBox.getSelectionModel().getSelectedItem());
-
-            observableMovies.clear();
-            System.out.println("Movie Count: "+filteredMovies.size());
-            observableMovies.addAll(filteredMovies);
-            System.out.println("Observable List Size: "+observableMovies.size());
+            if (filteredMovies.isEmpty()) {
+                observableMovies.clear();
+                //movieListView.setItems(new Label("No Movies found.")); // Add
+            }
+            observableMovies.setAll(filteredMovies);
             movieListView.setItems(observableMovies);
-            //movieListView.refresh();
+            movieListView.setCellFactory(movieListView -> new MovieCell());
         });
 
         // Sort button example:
         sortBtn.setOnAction(actionEvent -> {
-            if(sortBtn.getText().equals("Sort (asc)")) {
+            if (sortBtn.getText().equals("Sort (asc)")) {
                 // TODO sort observableMovies ascending
                 observableMovies.setAll(filterHelper.sort(allMovies, true));
                 sortBtn.setText("Sort (desc)");

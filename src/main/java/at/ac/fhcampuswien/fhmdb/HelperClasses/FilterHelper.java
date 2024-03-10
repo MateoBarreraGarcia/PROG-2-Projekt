@@ -13,35 +13,13 @@ public class FilterHelper {
     // A Helper Class containing methods for filtering. They can be accessed by creating an object of the class.
 
     public static List<Movie> filterMovies(List<Movie> movies, String searchString, Movie.Genre genre){
-        /*
-        for (Movie movie: movies) {
+        // Check for Null or empty
+        if (movies == null) throw new NullPointerException();
+        if (movies.isEmpty()) throw new IllegalArgumentException();
 
-        }
-        */
-
-        /*
-        Filter after Genre
-
-        Filter After Title
-
-        Filter After Description
-         */
-        // Old Code
-        if(searchString.isEmpty() || searchString == "" || searchString.trim() == "") return movies;    // Returnes the list of all movies when searchig for empty strings
-
-        List<Movie> filteredMovieList = new ArrayList<>();
-        for (Movie movie:movies) {  // Improve with regex?
-            if(movie.getTitle().contains(searchString)){
-                filteredMovieList.add(0,movie);
-            }
-            /*
-            else {
-                if(movie.getDescription().contains(searchString)) filteredMovieList.add(movie);
-            }
-            */
-        }
-
-        return filteredMovieList;
+        return (genre != null)?
+                 movies.stream().filter(x -> x.getGenres().contains(genre)).filter(x -> x.getTitle().contains(searchString) || x.getDescription().contains(searchString)).toList()
+                : movies.stream().filter(x -> x.getTitle().contains(searchString) || x.getDescription().contains(searchString)).toList();
     }
 
     /*
