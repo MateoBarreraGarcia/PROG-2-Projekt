@@ -58,22 +58,20 @@ public class HomeController implements Initializable {
 
         // TODO add genre filter items with genreComboBox.getItems().addAll(...)
 
-
+        //to filter movies by genre
         genreComboBox.getItems().addAll(genreList);
         genreComboBox.setPromptText("Filter by Genre");
 
         genreComboBox.setOnAction(event -> {
             Movie.Genre selectedGenre = (Movie.Genre) genreComboBox.getSelectionModel().getSelectedItem();
-            if (selectedGenre != null) {
-                // Filtere die Filme nach dem ausgewählten Genre
-                ObservableList<Movie> filteredMovies = FXCollections.observableArrayList(
+            if (selectedGenre != null) { ObservableList<Movie> filteredMovies = FXCollections.observableArrayList(
                         observableMovies.stream()
                                 .filter(m -> m.getGenres().contains(selectedGenre))
                                 .collect(Collectors.toList())
                 );
                 movieListView.setItems(filteredMovies);
             } else {
-                // Wenn kein Genre ausgewählt ist, zeige alle Filme an
+                // if no genre is selected, all movies are displayed
                 movieListView.setItems(observableMovies);
             }
         });
