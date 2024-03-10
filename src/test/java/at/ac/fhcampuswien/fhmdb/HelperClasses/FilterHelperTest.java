@@ -11,6 +11,33 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FilterHelperTest {
 
+    // Tests for public List<Movie> filterMovies(List<Movie> movies, String searchString, Movie.Genre genre)
+    @Test
+    void if_query_is_empty_and_a_genre_is_selected_only_movies_with_that_genre_are_returned() {
+        //given
+        FilterHelper filterHelper = new FilterHelper();
+
+        Movie firstMovie = new Movie("Dune", "Description", List.of(Movie.Genre.ADVENTURE, Genre.ROMANCE));
+        Movie secondMovie = new Movie("Dune: Part Two", "Description", List.of(Movie.Genre.ACTION));
+        Movie thirdMovie = new Movie("Spirited Away", "Description", List.of(Genre.HISTORY));
+        Movie fourthMovie = new Movie("The Empire Strikes Back", "Description", List.of(Movie.Genre.ADVENTURE));
+
+        List<Movie> movies = new ArrayList<>();
+        movies.add(firstMovie);
+        movies.add(secondMovie);
+        movies.add(thirdMovie);
+        movies.add(fourthMovie);
+
+        String query = "";
+        Movie.Genre genre = Genre.ADVENTURE;
+
+        List<Movie> expected = List.of(firstMovie,fourthMovie);
+        // when
+        List<Movie> actual = FilterHelper.filterMovies(movies, query, genre);
+        // then
+        assertEquals(expected, actual);
+    }
+
     // Tests for public List<Movie> sort(List<Movie> movies, boolean order)
     @Test
     void a_MovieList_is_sorted_in_ascending_lexicographic_order_if_order_parameter_equals_true() {
@@ -75,6 +102,7 @@ class FilterHelperTest {
         assertThrows(NullPointerException.class, () -> filterHelper.sort(null, true));
     }
 
+    @Test
     void checks_if_Movie_has_at_least_one_Genre(){
         // given
         List <Movie> movies = Movie.initializeMovies();
@@ -87,6 +115,7 @@ class FilterHelperTest {
 
     }
 
+    @Test
     void check_Movie_with_valid_Genre(){
         //given
         String title = "Avatar";
@@ -103,6 +132,7 @@ class FilterHelperTest {
         assertEquals(validGenre, movie.getGenres());
     }
 
+    @Test
     void check_Movie_with_unknown_Genre(){
         //given
         String title = "Movie Titel of the unknown Genre";
