@@ -37,7 +37,7 @@ public class HomeController implements Initializable {
 
     public List<Movie> allMovies = Movie.initializeMovies();
 
-    private final ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
+    private ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
 
     final List<Movie.Genre> genreList = allMovies.stream()
             .flatMap(m -> m.getGenres().stream())
@@ -79,7 +79,9 @@ public class HomeController implements Initializable {
                 observableMovies.clear();
                 movieListView.setPlaceholder(new Label("No Movies found"));
             } else {
-                observableMovies.setAll(filteredMovies);
+                //observableMovies.clear();
+                //observableMovies.setAll(filteredMovies);
+                observableMovies = FXCollections.observableArrayList(filteredMovies);
                 movieListView.setItems(observableMovies);
                 movieListView.setCellFactory(movieListView -> new MovieCell());
             }
