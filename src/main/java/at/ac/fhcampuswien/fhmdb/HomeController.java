@@ -91,11 +91,15 @@ public class HomeController implements Initializable {
         sortBtn.setOnAction(actionEvent -> {
             if (sortBtn.getText().equals("Sort (asc)")) {
                 // TODO sort observableMovies ascending
-                observableMovies.setAll(filterHelper.sort(allMovies, true));
+                observableMovies = FXCollections.observableArrayList(filterHelper.sort(observableMovies, true));
+                movieListView.setItems(observableMovies);
+                movieListView.setCellFactory(movieListView -> new MovieCell());
                 sortBtn.setText("Sort (desc)");
             } else {
                 // TODO sort observableMovies descending
-                observableMovies.setAll(filterHelper.sort(allMovies, false));
+                observableMovies = FXCollections.observableArrayList(filterHelper.sort(observableMovies, false));
+                movieListView.setItems(observableMovies);
+                movieListView.setCellFactory(movieListView -> new MovieCell());
                 sortBtn.setText("Sort (asc)");
             }
         });
