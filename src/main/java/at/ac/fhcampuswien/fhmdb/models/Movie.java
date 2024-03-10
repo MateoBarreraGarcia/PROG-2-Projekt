@@ -105,7 +105,6 @@ public class Movie implements Comparable<Movie> {
         THRILLER("Thriller"),
         WAR("War"),
         WESTERN("Western"),
-
         UNKNOWN ("Unknown");
 
 
@@ -117,6 +116,7 @@ public class Movie implements Comparable<Movie> {
         public String getLabel(){
             return label;
         }
+        //checks if given Genre object is valid otherwise it returns false
         public static boolean validGenre (Genre genre){
             for (Genre g:Genre.values()){
                 if (g==genre){

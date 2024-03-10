@@ -63,8 +63,7 @@ public class HomeController implements Initializable {
         genreComboBox.setPromptText("Filter by Genre");
 
         genreComboBox.setOnAction(event -> {
-            Movie.Genre selectedGenre = (Movie.Genre)
-                    genreComboBox.getSelectionModel().getSelectedItem();
+            Movie.Genre selectedGenre = (Movie.Genre) genreComboBox.getSelectionModel().getSelectedItem();
             if (selectedGenre != null) {
                 // Filtere die Filme nach dem ausgewählten Genre
                 ObservableList<Movie> filteredMovies = FXCollections.observableArrayList(
