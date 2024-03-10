@@ -84,7 +84,8 @@ public class HomeController implements Initializable {
         // either set event handlers in the fxml file (onAction) or add them here
 
         searchBtn.setOnAction(actionEvent -> {
-            List<Movie> filteredMovies = FilterHelper.filterMovies(allMovies, searchField.getText(), (Movie.Genre) genreComboBox.getSelectionModel().getSelectedItem());
+
+            List<Movie> filteredMovies = filterHelper.filterMovies(allMovies, searchField.getText(), (Movie.Genre) genreComboBox.getSelectionModel().getSelectedItem());
 
             if (filteredMovies.isEmpty()) {
                 observableMovies.clear();
